@@ -1,0 +1,6 @@
+export type FeatureStatus='implemented'|'partial'|'pending';
+export const statusSummary={
+  implemented:['Login','Logout','Login Attempt Limit','Brute-force Protection','Password Hashing','Riwayat Login','Audit Log','Pendapatan','Jumlah Pelanggan','Pengeluaran','Laba','Business Health Score','Input Transaksi','Nomor Transaksi Otomatis','Tanggal & Waktu Otomatis','Draft','Selesai','Metode Pembayaran','Data Karyawan','Kehadiran','Gaji','Komisi','Daftar Layanan','Harga','Durasi','Pendapatan Otomatis','Cash In/Out','Rekonsiliasi Kas','Laporan Transaksi','Laporan Keuangan','Backup Manual','Status Database','System Health'],
+  partial:['Manajemen Sesi','Role & Hak Akses','Dashboard','Analisis Bisnis','Check-in / Check-out','Shift','Target','KPI','Performa','Produktivitas','Payroll','Notifikasi','Laporan','Audit Log'],
+  pending:['Lupa / Reset Password','Logout Semua Perangkat','Sesi / Perangkat Aktif','Permission Detail','2FA Owner','Prediksi Bisnis','Insight Otomatis','Rekomendasi','Penutupan Shift','Void / Pembatalan','Koreksi Transaksi','Approval Perubahan','Segmentasi Pelanggan','Promo','Diskon','Penutupan Periode','Laporan Terjadwal','Data Cabang','Pengaturan','Restore Data','Trash / Pemulihan Data','Security Monitoring']
+};

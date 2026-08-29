@@ -1,0 +1,245 @@
+# WZ MANAGE PRO — FUNCTION CHECKLIST
+
+All blueprint features have an executable feature handler/registry entry. `🟡` means the handler exists but full production/E2E verification remains; it is not falsely marked complete.
+
+## 1
+- 🟡 Login
+- 🟡 Lupa / Reset Password
+- 🟡 Session Timeout
+- 🟡 Logout
+- 🟡 Logout Semua Perangkat
+- 🟡 Sesi / Perangkat Aktif
+- 🟡 Owner
+- 🟡 Manager
+- 🟡 Barber
+- 🟡 Kasir
+- 🟡 Permission Detail
+- 🟡 Riwayat Login
+- 🟡 Login Attempt Limit
+- 🟡 Brute-force Protection
+- 🟡 Password Hashing
+- 🟡 2FA Owner
+- 🟡 Audit Log
+## 2
+- 🟡 Kondisi Bisnis Hari Ini
+- 🟡 Pendapatan
+- 🟡 Jumlah Pelanggan
+- 🟡 Pengeluaran
+- 🟡 Laba
+- 🟡 Target & KPI
+- 🟡 Business Health Score
+- 🟡 Perbandingan Periode
+- 🟡 Grafik Bisnis
+- 🟡 Alert Penting
+- 🟡 Ringkasan Insight
+- 🟡 Filter Periode
+- 🟡 Filter Cabang
+- 🟡 Shortcut ke Detail
+## 3
+- 🟡 Business Overview
+- 🟡 Business Health Score
+- 🟡 Analisis Pendapatan
+- 🟡 Analisis Pelanggan
+- 🟡 Analisis Karyawan
+- 🟡 Analisis Layanan
+- 🟡 Analisis Jam & Hari Ramai
+- 🟡 Analisis Pengeluaran
+- 🟡 Perbandingan Periode
+- 🟡 Analisis Tren
+- 🟡 Deteksi Kejanggalan / Anomali
+- 🟡 Prediksi Bisnis
+- 🟡 Tingkat Kepercayaan Prediksi
+- 🟡 Insight Otomatis
+- 🟡 Rekomendasi
+- 🟡 Drill-down Grafik → Data Detail
+- 🟡 Filter Periode
+- 🟡 Filter Cabang
+- 🟡 Filter Karyawan
+- 🟡 Export Analisis
+## 4
+- 🟡 Check-in / Check-out
+- 🟡 Waktu Otomatis
+- 🟡 Hadir
+- 🟡 Terlambat
+- 🟡 Tidak Hadir
+- 🟡 Izin / Cuti
+- 🟡 Jadwal Kerja
+- 🟡 Shift
+- 🟡 Penugasan Karyawan
+- 🟡 Riwayat Perubahan Jadwal
+- 🟡 Aktivitas Harian
+- 🟡 Ringkasan Aktivitas Shift
+- 🟡 Rekap Otomatis
+- 🟡 Pemeriksaan Data
+- 🟡 Data Lock
+## 5
+- 🟡 Input Transaksi
+- 🟡 Nomor Transaksi Otomatis
+- 🟡 Tanggal & Waktu Otomatis
+- 🟡 Cabang Otomatis
+- 🟡 Pilih Pelanggan
+- 🟡 Pilih Layanan
+- 🟡 Barber Otomatis / Pilih
+- 🟡 Harga Otomatis
+- 🟡 Diskon / Promo
+- 🟡 Metode Pembayaran
+- 🟡 Status Transaksi
+- 🟡 Draft
+- 🟡 Selesai
+- 🟡 Void / Pembatalan
+- 🟡 Koreksi Transaksi
+- 🟡 Approval Perubahan
+- 🟡 Alasan Perubahan
+- 🟡 Pencegahan Duplikat
+- 🟡 Riwayat Transaksi
+## 6
+- 🟡 Data Karyawan
+- 🟡 ID Karyawan Otomatis
+- 🟡 Akun Karyawan
+- 🟡 Role
+- 🟡 Status Aktif / Nonaktif
+- 🟡 Riwayat Karyawan
+- 🟡 Jadwal
+- 🟡 Kehadiran
+- 🟡 Target
+- 🟡 KPI
+- 🟡 Performa
+- 🟡 Produktivitas
+- 🟡 Gaji
+- 🟡 Komisi
+- 🟡 Evaluasi
+- 🟡 Riwayat Kinerja
+## 7
+- 🟡 Data Pelanggan
+- 🟡 ID Pelanggan Otomatis
+- 🟡 Riwayat Kunjungan
+- 🟡 Pelanggan Baru
+- 🟡 Pelanggan Kembali
+- 🟡 Pelanggan Aktif
+- 🟡 Pelanggan Tidak Aktif
+- 🟡 Frekuensi Kunjungan
+- 🟡 Total Nilai Transaksi
+- 🟡 Layanan Favorit
+- 🟡 Segmentasi Pelanggan
+- 🟡 Tag Pelanggan
+- 🟡 Catatan Pelanggan
+- 🟡 Analisis Loyalitas
+## 8
+- 🟡 Daftar Layanan
+- 🟡 Kategori
+- 🟡 Harga
+- 🟡 Durasi
+- 🟡 Status Aktif / Nonaktif
+- 🟡 Riwayat Harga
+- 🟡 Promo
+- 🟡 Diskon
+- 🟡 Periode Promo
+- 🟡 Syarat Promo
+- 🟡 Batas Penggunaan
+- 🟡 Validasi Promo Otomatis
+- 🟡 Riwayat Penggunaan Promo
+- 🟡 Analisis Performa Layanan
+## 9
+- 🟡 Pendapatan Otomatis
+- 🟡 Pengeluaran
+- 🟡 Kategori Pengeluaran
+- 🟡 Bukti / Referensi Pengeluaran
+- 🟡 Approval Pengeluaran
+- 🟡 Kas
+- 🟡 Kas Masuk
+- 🟡 Kas Keluar
+- 🟡 Rekonsiliasi Kas
+- 🟡 Gaji
+- 🟡 Komisi
+- 🟡 Laba Kotor
+- 🟡 Laba Bersih
+- 🟡 Cash Flow
+- 🟡 Review
+- 🟡 Approval
+- 🟡 Data Lock
+- 🟡 Reopen dengan Otorisasi
+## 10
+- 🟡 Pendapatan Turun
+- 🟡 Target Tidak Tercapai
+- 🟡 Target Tercapai
+- 🟡 Data Janggal
+- 🟡 Pengeluaran Tidak Normal
+- 🟡 Karyawan Terlambat
+- 🟡 Tidak Hadir
+- 🟡 Shift Belum Selesai
+- 🟡 Insight Baru
+- 🟡 Masalah Sistem
+- 🟡 Prioritas Notifikasi
+- 🟡 Belum Dibaca / Sudah Dibaca
+- 🟡 Riwayat Notifikasi
+- 🟡 Preferensi Notifikasi
+## 11
+- 🟡 Laporan Harian
+- 🟡 Laporan Mingguan
+- 🟡 Laporan Bulanan
+- 🟡 Laporan Tahunan
+- 🟡 Laporan Transaksi
+- 🟡 Laporan Keuangan
+- 🟡 Laporan Karyawan
+- 🟡 Laporan Operasional
+- 🟡 Laporan Pelanggan
+- 🟡 Filter Periode
+- 🟡 Filter Cabang
+- 🟡 Filter Karyawan
+- 🟡 Filter Layanan
+- 🟡 Drill-down
+- 🟡 Export PDF
+- 🟡 Export Excel
+- 🟡 Riwayat Export
+- 🟡 Laporan Terjadwal
+## 12
+- 🟡 Data Cabang
+- 🟡 ID Cabang
+- 🟡 Lokasi / Alamat
+- 🟡 Status Aktif / Nonaktif
+- 🟡 Jam Operasional
+- 🟡 Karyawan per Cabang
+- 🟡 Layanan per Cabang
+- 🟡 Harga per Cabang
+- 🟡 Target per Cabang
+- 🟡 Performa per Cabang
+- 🟡 Perbandingan Cabang
+- 🟡 Analisis Gabungan
+## 13
+- 🟡 Profil Bisnis
+- 🟡 Logo
+- 🟡 Kontak
+- 🟡 Jam Operasional
+- 🟡 Zona Waktu
+- 🟡 Mata Uang
+- 🟡 Format Tanggal
+- 🟡 Target Bisnis
+- 🟡 Target Cabang
+- 🟡 Target Karyawan
+- 🟡 Role & Hak Akses
+- 🟡 Pengaturan Komisi
+- 🟡 Pengaturan Analisis
+- 🟡 Ambang Peringatan
+- 🟡 Pengaturan Prediksi
+- 🟡 Password & Keamanan
+- 🟡 Preferensi Sistem
+- 🟡 Preferensi Pengguna
+- 🟡 Nomor Urut Dokumen / Transaksi
+## 14
+- 🟡 Backup Otomatis
+- 🟡 Backup Manual
+- 🟡 Restore Data
+- 🟡 Riwayat Backup
+- 🟡 Riwayat Restore
+- 🟡 Retensi Backup
+- 🟡 Data Lock
+- 🟡 Soft Delete
+- 🟡 Trash / Pemulihan Data
+- 🟡 Audit Log
+- 🟡 Monitoring Sistem
+- 🟡 Status Database
+- 🟡 System Health
+- 🟡 Error Monitoring
+- 🟡 Security Monitoring
+- 🟡 Security Events
+- 🟡 Riwayat Aktivitas Sistem

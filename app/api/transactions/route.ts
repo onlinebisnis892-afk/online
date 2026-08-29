@@ -1,0 +1,2 @@
+import {NextRequest,NextResponse} from 'next/server';import {getSessionUser} from '@/lib/auth';import {createTransaction} from '@/lib/business';
+export async function POST(r:NextRequest){const u=await getSessionUser();if(!u)return NextResponse.json({message:'Unauthorized'},{status:401});try{return NextResponse.json(await createTransaction(await r.json()),{status:201})}catch(e:any){return NextResponse.json({message:e.message||'Transaction gagal'},{status:400})}}

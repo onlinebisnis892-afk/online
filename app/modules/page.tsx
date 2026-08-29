@@ -1,0 +1,2 @@
+import Link from 'next/link'; import {modules} from '@/lib/feature-registry';
+export default function Modules(){return <><span className="eyebrow">WZ MANAGE PRO</span><h1>Semua Modul</h1><p className="muted">Klik modul untuk melihat dan menjalankan fitur.</p><div className="grid">{modules.map(m=><Link className="card module" href={'/modules/'+m.key} key={m.key}><div className="module-title">{m.name}</div><p>{m.features.length} fitur</p><span className="pill">Buka →</span></Link>)}</div></>}
