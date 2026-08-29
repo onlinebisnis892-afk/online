@@ -169,27 +169,27 @@ model ServicePrice {
 }
 
 model Promotion {
-  id          String         @id @default(cuid())
-  name        String
-  type        String
-  value       Decimal
-  startAt     DateTime
-  endAt       DateTime
-  usageLimit  Int?
+  id             String         @id @default(cuid())
+  name           String
+  type           String
+  value          Decimal
+  startAt        DateTime
+  endAt          DateTime
+  usageLimit     Int?
   conditionsJson Json?
-  active      Boolean        @default(true)
-  uses        PromotionUse[]
+  active         Boolean        @default(true)
+  uses           PromotionUse[]
 }
 
 model PromotionUse {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   promotionId   String
   serviceId     String?
   transactionId String
   discount      Decimal
-  promotion     Promotion    @relation(fields: [promotionId], references: [id])
-  service       Service?     @relation(fields: [serviceId], references: [id])
-  transaction   Transaction  @relation(fields: [transactionId], references: [id])
+  promotion     Promotion   @relation(fields: [promotionId], references: [id])
+  service       Service?    @relation(fields: [serviceId], references: [id])
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
 
   @@index([promotionId])
 }
@@ -204,7 +204,7 @@ model Booking {
   status      String
   customer    Customer     @relation(fields: [customerId], references: [id])
   employee    Employee?    @relation(fields: [employeeId], references: [id])
-  transaction  Transaction?
+  transaction Transaction?
   createdAt   DateTime     @default(now())
 
   @@index([branchId, scheduledAt])
@@ -226,27 +226,27 @@ model QueueItem {
 }
 
 model Transaction {
-  id             String          @id @default(cuid())
-  number         String          @unique
-  branchId       String
-  customerId     String?
-  employeeId     String?
-  bookingId      String?         @unique
-  status         TxStatus        @default(DRAFT)
-  payment        PaymentMethod?
-  subtotal       Decimal         @default(0)
-  discount       Decimal         @default(0)
-  total          Decimal         @default(0)
-  reason         String?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  branch         Branch          @relation(fields: [branchId], references: [id])
-  customer       Customer?       @relation(fields: [customerId], references: [id])
-  employee       Employee?       @relation(fields: [employeeId], references: [id])
-  booking        Booking?        @relation(fields: [bookingId], references: [id])
-  items          TransactionItem[]
-  promotionUses  PromotionUse[]
-  commission     Commission?
+  id            String           @id @default(cuid())
+  number        String           @unique
+  branchId      String
+  customerId    String?
+  employeeId    String?
+  bookingId     String?          @unique
+  status        TxStatus         @default(DRAFT)
+  payment       PaymentMethod?
+  subtotal      Decimal          @default(0)
+  discount      Decimal          @default(0)
+  total         Decimal          @default(0)
+  reason        String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  branch        Branch           @relation(fields: [branchId], references: [id])
+  customer      Customer?        @relation(fields: [customerId], references: [id])
+  employee      Employee?        @relation(fields: [employeeId], references: [id])
+  booking       Booking?         @relation(fields: [bookingId], references: [id])
+  items         TransactionItem[]
+  promotionUses PromotionUse[]
+  commission    Commission?
 }
 
 model TransactionItem {
@@ -264,14 +264,14 @@ model TransactionItem {
 }
 
 model Expense {
-  id         String         @id @default(cuid())
-  branchId   String
-  category   String
-  amount     Decimal
-  reference  String?
-  approval   ApprovalStatus @default(PENDING)
-  createdAt  DateTime       @default(now())
-  branch     Branch         @relation(fields: [branchId], references: [id])
+  id        String         @id @default(cuid())
+  branchId  String
+  category  String
+  amount    Decimal
+  reference String?
+  approval  ApprovalStatus @default(PENDING)
+  createdAt DateTime       @default(now())
+  branch    Branch         @relation(fields: [branchId], references: [id])
 }
 
 model Attendance {
@@ -307,16 +307,16 @@ model Commission {
 }
 
 model Payroll {
-  id         String         @id @default(cuid())
-  employeeId String
+  id          String         @id @default(cuid())
+  employeeId  String
   periodStart DateTime
   periodEnd   DateTime
-  base       Decimal
-  commission Decimal
-  deduction  Decimal        @default(0)
-  net        Decimal
-  status     ApprovalStatus @default(PENDING)
-  employee   Employee       @relation(fields: [employeeId], references: [id])
+  base        Decimal
+  commission  Decimal
+  deduction   Decimal        @default(0)
+  net         Decimal
+  status      ApprovalStatus @default(PENDING)
+  employee    Employee       @relation(fields: [employeeId], references: [id])
 }
 
 model Evaluation {
@@ -325,4 +325,173 @@ model Evaluation {
   score      Decimal
   notes      String?
   date       DateTime @default(now())
-  employee   Employee @relation
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String?
+  title     String
+  message   String
+  priority  String
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String?
+  entityId  String?
+  details   Json?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([createdAt])
+}
+
+model LoginEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  username  String
+  success   Boolean
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model ExportLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  reportType String
+  format     String
+  createdAt  DateTime @default(now())
+}
+
+model BackupLog {
+  id        String   @id @default(cuid())
+  type      String
+  location  String?
+  createdAt DateTime @default(now())
+}
+
+model SystemEvent {
+  id        String   @id @default(cuid())
+  kind      String
+  severity  String
+  message   String
+  createdAt  DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id          String   @id @default(cuid())
+  userId      String
+  tokenHash   String   @unique
+  expiresAt   DateTime
+  deviceLabel String?
+  ip          String?
+  userAgent   String?
+  usedAt      DateTime?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+}
+
+model Permission {
+  id              String           @id @default(cuid())
+  key             String           @unique
+  label           String
+  rolePermissions RolePermission[]
+}
+
+model RolePermission {
+  id           String     @id @default(cuid())
+  role         Role
+  permissionId String
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([role, permissionId])
+}
+
+model UserPreference {
+  id               String @id @default(cuid())
+  userId           String @unique
+  notificationJson Json?
+  systemJson       Json?
+  user             User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CashEntry {
+  id         String   @id @default(cuid())
+  branchId   String
+  type       String
+  amount     Decimal
+  category   String
+  reference  String?
+  createdAt  DateTime @default(now())
+  branch     Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([branchId, createdAt])
+}
+
+model PeriodLock {
+  id         String   @id @default(cuid())
+  branchId   String?
+  startAt    DateTime
+  endAt      DateTime
+  status     String
+  lockedBy   String?
+  reopenedBy String?
+  createdAt  DateTime @default(now())
+
+  @@index([branchId, startAt, endAt])
+}
+
+model InventoryItem {
+  id         String          @id @default(cuid())
+  branchId   String
+  name       String
+  sku        String?
+  stock      Int             @default(0)
+  minStock   Int             @default(0)
+  unitPrice  Decimal         @default(0)
+  active     Boolean         @default(true)
+  branch     Branch          @relation(fields: [branchId], references: [id])
+  movements  StockMovement[]
+
+  @@index([branchId, active])
+}
+
+model StockMovement {
+  id              String        @id @default(cuid())
+  inventoryItemId String
+  type            String
+  qty             Int
+  reason          String?
+  createdAt       DateTime      @default(now())
+  item            InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+
+  @@index([inventoryItemId, createdAt])
+}
+
+model ReportSchedule {
+  id         String   @id @default(cuid())
+  userId     String
+  reportType String
+  format     String
+  frequency  String
+  nextRunAt  DateTime
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model NotificationPreference {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  enabled     Boolean @default(true)
+  categories  Json?
+  quietStart  String?
+  quietEnd    String?
+}
