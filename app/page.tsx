@@ -1,4 +1,49 @@
-"use client";
-import Link from 'next/link'; import {useEffect,useState} from 'react'; import {modules} from '@/lib/feature-registry';
-const money=(n:number)=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n||0);
-export default function Home(){const [stats,setStats]=useState<any>(null);const [user,setUser]=useState<any>(null);const [loading,setLoading]=useState(true);useEffect(()=>{(async()=>{try{const me=await fetch('/api/auth/me',{cache:'no-store'}).then(r=>r.json());if(!me.authenticated){location.href='/login';return}setUser(me.user);const a=await fetch('/api/analytics',{cache:'no-store'});if(a.ok)setStats(await a.json())}finally{setLoading(false)}})()},[]);return <><section className="hero"><div><span className="eyebrow">ONLINE BUSINESS MANAGEMENT</span><h1>WZ MANAGE PRO</h1><p className="muted">Selamat datang{user?`, ${user.username}`:''}. Kelola operasional bisnis dari satu tempat.</p></div><div className="hero-actions"><Link className="primary-btn link-btn" href="/modules/transactions/new">+ Transaksi</Link><Link className="secondary-btn link-btn" href="/modules/analytics">Analisis</Link></div></section><section className="metrics"><div className="metric-card"><span>Pendapatan</span><strong>{loading?'…':money(stats?.revenue||0)}</strong></div><div className="metric-card"><span>Pengeluaran</span><strong>{loading?'…':money(stats?.expenses||0)}</strong></div><div className="metric-card"><span>Laba</span><strong>{loading?'…':money(stats?.profit||0)}</strong></div><div className="metric-card"><span>Transaksi</span><strong>{loading?'…':stats?.transactions||0}</strong></div><div className="metric-card"><span>Health</span><strong>{loading?'…':`${stats?.health||0}%`}</strong></div></section><div className="section-title"><div><h2>Modul</h2><p className="muted">Setiap fitur bisa dibuka dan diuji.</p></div></div><div className="grid">{modules.map(m=><Link className="card module" href={'/modules/'+m.key} key={m.key}><div className="module-title">{m.name}</div><p>{m.features.length} fitur terdaftar</p><span className="pill">Buka modul →</span></Link>)}</div></>}
+import Link from "next/link";
+
+export default function Home() {
+  return (
+    <main className="space-y-6">
+      <section className="hero">
+        <div>
+          <span className="eyebrow">ONLINE BUSINESS MANAGEMENT</span>
+          <h1>WZ MANAGE PRO</h1>
+          <p className="muted">
+            Dashboard bisnis terhubung ke database.
+          </p>
+        </div>
+        <div className="hero-actions">
+          <Link className="primary-btn link-btn" href="/modules/transactions/new">
+            + Transaksi
+          </Link>
+          <Link className="secondary-btn link-btn" href="/modules/reports/employees">
+            Laporan Karyawan
+          </Link>
+        </div>
+      </section>
+
+      <section className="grid">
+        <DashboardCard title="💰 Pendapatan" text="Lihat pendapatan dan transaksi selesai." href="/details/finance" />
+        <DashboardCard title="👤 Pelanggan" text="Lihat data dan riwayat pelanggan." href="/details/customers" />
+        <DashboardCard title="💸 Pengeluaran" text="Lihat total dan data pengeluaran." href="/details/expenses" />
+        <DashboardCard title="📈 Laba" text="Pendapatan dikurangi pengeluaran." href="/details/profit" />
+        <DashboardCard title="🎯 KPI" text="Target dan performa karyawan." href="/details/kpi" />
+      </section>
+
+      <section className="grid">
+        <DashboardCard title="👥 Laporan Karyawan" text="Absensi, transaksi, komisi, payroll, evaluasi." href="/modules/reports/employees" />
+        <DashboardCard title="🧾 Transaksi" text="Buat transaksi dan simpan ke database." href="/modules/transactions/new" />
+        <DashboardCard title="🧠 Analisis" text="Analisis bisnis berdasarkan database." href="/details/analytics" />
+      </section>
+    </main>
+  );
+}
+
+function DashboardCard({ title, text, href }: { title: string; text: string; href: string }) {
+  return (
+    <Link className="card module" href={href}>
+      <div className="module-title">{title}</div>
+      <p>{text}</p>
+      <span className="pill">Buka detail →</span>
+    </Link>
+  );
+}
