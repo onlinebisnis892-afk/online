@@ -16,10 +16,21 @@ const money = (v: number) => Math.round(v * 100) / 100;
 const asString = (v: unknown, fallback = '') => typeof v === 'string' ? v : fallback;
 const asNumber = (v: unknown, fallback = 0) => typeof v === 'number' && Number.isFinite(v) ? v : fallback;
 
-async function audit(action: string, details: Record<string, unknown> = {}) {
-  try { await db.auditLog.create({ data: { action, details } }); } catch { /* telemetry must not break feature execution */ }
+async function audit(
+  action: string,
+  details: Record<string, unknown> = {}
+) {
+  try {
+    await db.auditLog.create({
+      data: {
+        action,
+        details: JSON.parse(JSON.stringify(details))
+      }
+    });
+  } catch {
+    // telemetry must not break feature execution
+  }
 }
-
 function makeToken(bytes = 32) { return crypto.randomBytes(bytes).toString('hex'); }
 function hash(value: string) { return crypto.createHash('sha256').update(value).digest('hex'); }
 
