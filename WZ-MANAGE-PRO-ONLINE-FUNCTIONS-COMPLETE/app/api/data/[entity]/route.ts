@@ -35,6 +35,8 @@ const map: Record<string, string> = {
   servicePrices: 'servicePrice'
 };
 
+type Params = Promise<{ entity: string }>;
+
 function client(entity: string) {
   return (db as any)[map[entity]];
 }
@@ -47,21 +49,14 @@ function clean(body: any) {
   return out;
 }
 
-type Params = Promise<{ entity: string }>;
-
 export async function GET(
   req: NextRequest,
   { params }: { params: Params }
 ) {
   const { entity } = await params;
 
-  const model = map[entity];
-
-  if (!model) {
-    return NextResponse.json(
-      { error: 'Unknown entity' },
-      { status: 404 }
-    );
+  if (!map[entity]) {
+    return NextResponse.json({ error: 'Unknown entity' }, { status: 404 });
   }
 
   const url = new URL(req.url);
@@ -73,49 +68,89 @@ export async function GET(
 
   const where: any = {};
 
-  if (
-    q &&
-    [
-      'branch',
-      'employee',
-      'customer',
-      'service',
-      'promotion',
-      'expense',
-      'inventoryItem'
-    ].includes(model)
-  ) {
-    const field = [
-      'branch',
-      'employee',
-      'customer',
-      'service',
-      'promotion'
-    ].includes(model)
-      ? 'name'
-      : 'category';
+  if (q) {
+    const model = map[entity];
 
-    where[field] = {
-      contains: q,
-      mode: 'insensitive'
-    };
+    if (
+      ['branch', 'employee', 'customer', 'service', 'promotion'].includes(model)
+    ) {
+      where.name = { contains: q, mode: 'insensitive' };
+    } else if (['expense', 'inventoryItem'].includes(model)) {
+      where.category = { contains: q, mode: 'insensitive' };
+    }
   }
 
-  const rows = await client(entity)
+  const c = client(entity);
+
+  const data = await c
     .findMany({
       where,
       take: limit,
       orderBy: { createdAt: 'desc' }
     })
-    .catch(() =>
-      client(entity).findMany({
-        where,
-        take: limit
-      })
-    );
+    .catch(() => c.findMany({ where, take: limit }));
 
-  return NextResponse.json({ data: rows });
+  return NextResponse.json({ data });
 }
 
 export async function POST(
-  req: Next
+  req: NextRequest,
+  { params }: { params: Params }
+) {
+  const { entity } = await params;
+
+  if (!map[entity]) {
+    return NextResponse.json({ error: 'Unknown entity' }, { status: 404 });
+  }
+
+  const body = clean(await req.json());
+  const data = await client(entity).create({ data: body });
+
+  return NextResponse.json({ data }, { status: 201 });
+}
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Params }
+) {
+  const { entity } = await params;
+
+  if (!map[entity]) {
+    return NextResponse.json({ error: 'Unknown entity' }, { status: 404 });
+  }
+
+  const body = await req.json();
+  const id = body.id;
+
+  if (!id) {
+    return NextResponse.json({ error: 'id required' }, { status: 400 });
+  }
+
+  const data = await client(entity).update({
+    where: { id },
+    data: clean(body)
+  });
+
+  return NextResponse.json({ data });
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Params }
+) {
+  const { entity } = await params;
+
+  if (!map[entity]) {
+    return NextResponse.json({ error: 'Unknown entity' }, { status: 404 });
+  }
+
+  const id = new URL(req.url).searchParams.get('id');
+
+  if (!id) {
+    return NextResponse.json({ error: 'id required' }, { status: 400 });
+  }
+
+  const data = await client(entity).delete({ where: { id } });
+
+  return NextResponse.json({ data });
+}
