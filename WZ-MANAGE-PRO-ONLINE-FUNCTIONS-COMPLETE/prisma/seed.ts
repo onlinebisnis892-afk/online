@@ -1,0 +1,4 @@
+import {PrismaClient} from '@prisma/client';import {scryptSync,randomBytes} from 'node:crypto';
+const db=new PrismaClient();
+const ph=(p:string)=>{const salt=randomBytes(16).toString('hex');return `${salt}:${scryptSync(p,salt,64).toString('hex')}`};
+async function main(){const b=await db.branch.upsert({where:{id:'demo-branch'},update:{},create:{id:'demo-branch',name:'WZ Barbershop Pusat',target:10000000}});await db.user.upsert({where:{username:'owner'},update:{},create:{username:'owner',passwordHash:ph('owner123'),role:'OWNER'}});await db.service.upsert({where:{id:'demo-service'},update:{},create:{id:'demo-service',name:'Potong Rambut',category:'Haircut',duration:45,priceHistory:{create:{price:50000,effectiveAt:new Date()}}}});console.log({branch:b.id})}main().finally(()=>db.$disconnect());

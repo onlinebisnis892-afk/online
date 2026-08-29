@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server';import {cookies} from 'next/headers';import {db} from '@/lib/db';import {hashToken} from '@/lib/security';
+export async function POST(){const c=await cookies();const raw=c.get('wz_session')?.value;if(raw)await db.session.updateMany({where:{tokenHash:hashToken(raw)},data:{revokedAt:new Date()}});c.delete('wz_session');return NextResponse.json({success:true})}
