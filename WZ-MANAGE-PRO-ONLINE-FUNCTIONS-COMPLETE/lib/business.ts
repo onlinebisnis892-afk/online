@@ -82,7 +82,7 @@ export async function createTransaction(input: {
 
   const items = input.items.map((i) => {
     const branchService = services.find(
-      (x) => x.serviceId === i.serviceId
+      (x: { serviceId: string }) => x.serviceId === i.serviceId
     );
 
     if (!branchService) {
@@ -255,13 +255,13 @@ export async function businessAnalytics(params: {
   });
 
   const revenue = tx.reduce(
-    (sum, transaction) =>
+    (sum: number, transaction: { total: unknown }) =>
       sum + moneyNumber(transaction.total),
     0
   );
 
   const expenses = exp.reduce(
-    (sum, expense) =>
+    (sum: number, expense: { amount: unknown }) =>
       sum + moneyNumber(expense.amount),
     0
   );
@@ -402,7 +402,7 @@ export async function customerInsights(
     });
 
   const total = tx.reduce(
-    (sum, transaction) =>
+    (sum: number, transaction: { total: unknown }) =>
       sum + moneyNumber(transaction.total),
     0
   );
@@ -413,9 +413,9 @@ export async function customerInsights(
   >();
 
   tx.flatMap(
-    (transaction) =>
+    (transaction: { items: Array<{ serviceId: string; total: unknown; qty: number; service: { name: string } }> }) =>
       transaction.items
-  ).forEach((item) => {
+  ).forEach((item: { serviceId: string; total: unknown; qty: number; service: { name: string } }) => {
     services.set(
       item.service.name,
       (services.get(

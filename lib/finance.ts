@@ -69,16 +69,16 @@ export async function reconcileCash(
   });
 
   const ins = rows
-    .filter((x) => x.type === 'IN')
+    .filter((x: { type: string; amount: unknown }) => x.type === 'IN')
     .reduce(
-      (sum, x) => sum + Number(x.amount),
+      (sum: number, x: { type: string; amount: unknown }) => sum + Number(x.amount),
       0
     );
 
   const outs = rows
-    .filter((x) => x.type === 'OUT')
+    .filter((x: { type: string; amount: unknown }) => x.type === 'OUT')
     .reduce(
-      (sum, x) => sum + Number(x.amount),
+      (sum: number, x: { type: string; amount: unknown }) => sum + Number(x.amount),
       0
     );
 
@@ -131,7 +131,7 @@ export async function calculatePayroll(
 
   const commission =
     transactions.reduce(
-      (sum, transaction) =>
+      (sum: number, transaction: { total: unknown }) =>
         sum +
         (Number(transaction.total) *
           commissionRate) /
